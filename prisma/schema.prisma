@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  full_name     String
+  email_address String         @unique
+  password      String
+  createdAt     DateTime       @default(now())
+  halls         UsersOfHalls[]
+}
+
+model Hall {
+  id        Int            @id @default(autoincrement()) @db.UnsignedInt
+  movie_url String         @db.VarChar(512)
+  createdAt DateTime       @default(now())
+  members   UsersOfHalls[]
+}
+
+enum Role {
+  PROVIDER
+  CLIENT
+}
+
+model UsersOfHalls {
+  member    User   @relation(fields: [member_id], references: [id])
+  member_id String
+  hall      Hall   @relation(fields: [hall_id], references: [id])
+  hall_id   Int    @db.UnsignedInt
+  role      Role   @default(CLIENT)
+
+  @@id([member_id, hall_id])
+}
