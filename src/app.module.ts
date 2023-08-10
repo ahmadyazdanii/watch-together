@@ -1,15 +1,38 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { HallsModule } from './halls/halls.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { AuthenticationMiddleware } from '@global/middleware/authentication.middleware';
+import { HallsController } from './halls/halls.controller';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    DatabaseModule,
+    JwtModule.registerAsync({
+      global: true,
+      useFactory(configService: ConfigService) {
+        return {
+          secret: configService.get('JWT_SECRET'),
+        };
+      },
+      inject: [ConfigService],
+    }),
+    DatabaseModule.forRoot({
+      log: [
+        {
+          emit: 'event',
+          level: 'query',
+        },
+      ],
+    }),
     AuthModule,
     HallsModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthenticationMiddleware).forRoutes(HallsController);
+  }
+}
