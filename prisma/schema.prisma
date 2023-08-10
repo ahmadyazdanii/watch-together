@@ -32,9 +32,9 @@ enum Role {
 }
 
 model UsersOfHalls {
-  member    User   @relation(fields: [member_id], references: [id])
+  member    User   @relation(fields: [member_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   member_id String
-  hall      Hall   @relation(fields: [hall_id], references: [id])
+  hall      Hall   @relation(fields: [hall_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   hall_id   Int    @db.UnsignedInt
   role      Role   @default(CLIENT)
 
