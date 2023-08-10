@@ -13,8 +13,15 @@ export class AuthController {
 
   @Post('/signup')
   @ValidationSchema(signUpSchema)
-  signUp(@Body() user: SignUpDTO) {
-    return this.authService.signUp(user);
+  async signUp(
+    @Body() user: SignUpDTO,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const [userInstance, jwtToken] = await this.authService.signUp(user);
+
+    response.cookie('access_token', jwtToken);
+
+    return userInstance;
   }
 
   @Post('/signin')
