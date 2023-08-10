@@ -1,5 +1,5 @@
 import { UUID } from 'crypto';
 
-export interface RemoveHallDTO {
+export class RemoveHallDTO {
   id: UUID;
 }

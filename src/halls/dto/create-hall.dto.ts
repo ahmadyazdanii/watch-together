@@ -1,3 +1,3 @@
-export interface CreateHallDTO {
+export class CreateHallDTO {
   movie_url: string;
 }

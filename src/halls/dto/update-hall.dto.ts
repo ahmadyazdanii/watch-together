@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { CreateHallDTO } from './create-hall.dto';
 
-export interface UpdateHallDTO extends Partial<CreateHallDTO> {}
+export class UpdateHallDTO extends PartialType(CreateHallDTO) {}

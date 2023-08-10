@@ -1,4 +1,4 @@
-export interface SignInDTO {
-  email_address: string;
-  password: string;
-}
+import { OmitType } from '@nestjs/mapped-types';
+import { SignUpDTO } from './sign-up.dto';
+
+export class SignInDTO extends OmitType(SignUpDTO, ['full_name']) {}
