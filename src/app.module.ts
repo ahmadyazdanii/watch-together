@@ -3,7 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { HallsModule } from './halls/halls.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
-import { AuthenticationMiddleware } from '@global/middleware/authentication.middleware';
+import { AuthenticationMiddleware } from '@common/middleware/authentication.middleware';
 import { HallsController } from './halls/halls.controller';
 import { JwtModule } from '@nestjs/jwt';
 

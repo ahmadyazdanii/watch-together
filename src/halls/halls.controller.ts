@@ -11,11 +11,11 @@ import {
 } from '@nestjs/common';
 import { HallsService } from './halls.service';
 import { CreateHallDTO } from './dto/create-hall.dto';
-import { ValidationSchema } from '@global/decorator/validation-schema.decorator';
+import { ValidationSchema } from '@common/decorator/validation-schema.decorator';
 import { createHallSchema } from './schema/create-hall.schema';
 import { updateHallSchema } from './schema/update-hall.schema';
 import { UpdateHallDTO } from './dto/update-hall.dto';
-import { CurrentUser } from '@global/decorator/current-user.decorator';
+import { CurrentUser } from '@common/decorator/current-user.decorator';
 
 @Controller('halls')
 export class HallsController {

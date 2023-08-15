@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignUpDTO } from './dto/sign-up.dto';
-import { ValidationSchema } from '@global/decorator/validation-schema.decorator';
+import { ValidationSchema } from '@common/decorator/validation-schema.decorator';
 import { signUpSchema } from './schema/sign-up.schema';
 import { signInSchema } from './schema/sign-in.schema';
 import { SignInDTO } from './dto/sign-in.dto';
