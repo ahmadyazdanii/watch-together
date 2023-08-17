@@ -11,7 +11,7 @@ import { gatewayAuthentication } from './middleware/authentication.middleware';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from 'src/auth/auth.service';
 
-@WebSocketGateway()
+@WebSocketGateway({ cookie: true })
 export class EventsGateway implements OnGatewayInit {
   constructor(
     private readonly eventsService: EventsService,
