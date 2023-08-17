@@ -20,6 +20,14 @@ export class AuthService {
 
   async getUser(id: UUID) {
     return await this.database.user.findUnique({
+      include: {
+        halls: {
+          select: {
+            hall_id: true,
+            role: true,
+          },
+        },
+      },
       where: {
         id,
       },
